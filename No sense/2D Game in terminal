@@ -38,7 +38,7 @@ class Grade:
             ["*" for nothing in range(8)],
             ["*" for nothing in range(8)],
             ["*" for nothing in range(8)],
-            ] # desculpa, apaguei uma letra ali
+            ]
         self.fileira = self.in_fileira = randint(0, 5)
         self.coluna = self.in_coluna = randint(0, 7)
         self.grade[self.fileira][self.coluna] = "X"
