@@ -11,7 +11,7 @@ pygame.init()
 executing = True
 
 def screen_dimension():
-    return (500, 650)
+    return (300, 50)
 
 def game_name():
     return "Leitor de teclas"
@@ -31,17 +31,30 @@ _keys = Keys()
 
 class Grade:
     def __init__(self):
+        self.colun = 20
+        self.person = "⬜"
+        self._grade = "⬛"
         self.grade = [
-            ["*" for nothing in range(8)],
-            ["*" for nothing in range(8)],
-            ["*" for nothing in range(8)],
-            ["*" for nothing in range(8)],
-            ["*" for nothing in range(8)],
-            ["*" for nothing in range(8)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
+            [self._grade for nothing in range(self.colun)],
             ]
-        self.fileira = self.in_fileira = randint(0, 5)
-        self.coluna = self.in_coluna = randint(0, 7)
-        self.grade[self.fileira][self.coluna] = "X"
+        self.fileira = self.in_fileira = randint(0, len(self.grade))
+        self.coluna = self.in_coluna = randint(0, self.colun - 1)
+        self.grade[self.fileira][self.coluna] = "⬛"
 
     def __str__(self):
         clear_terminal()
@@ -53,8 +66,8 @@ class Grade:
         try:
             if new_pos[0] < 0 or new_pos[1] < 0:
                 raise IndexError 
-            self.grade[new_pos[0]][new_pos[1]] = "X"
-            self.grade[pas_pos[0]][pas_pos[1]] = "*"  
+            self.grade[new_pos[0]][new_pos[1]] = self.person
+            self.grade[pas_pos[0]][pas_pos[1]] = self._grade
             self.fileira, self.coluna = new_pos
         except IndexError:
             pass
@@ -107,3 +120,4 @@ while executing:
     pygame.display.update()
 else:
     exit()
+
