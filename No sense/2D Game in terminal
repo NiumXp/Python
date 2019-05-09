@@ -1,0 +1,109 @@
+"""
+Script cheio de gambiarra feito com https://github.com/Kaigo11k
+"""
+
+import pygame
+from random import randint
+from os import system, name
+
+pygame.init()
+
+executing = True
+
+def screen_dimension():
+    return (500, 650)
+
+def game_name():
+    return "Leitor de teclas"
+
+screen = pygame.display.set_mode(screen_dimension())
+pygame.display.set_caption(game_name())
+
+
+class Keys:
+    def __init__(self):
+        self.up = (273, 119)
+        self.left = (276, 97)
+        self.down = (274, 115)
+        self.right = (275, 100)
+
+_keys = Keys()
+
+class Grade:
+    def __init__(self):
+        self.grade = [
+            ["*" for nothing in range(8)],
+            ["*" for nothing in range(8)],
+            ["*" for nothing in range(8)],
+            ["*" for nothing in range(8)],
+            ["*" for nothing in range(8)],
+            ["*" for nothing in range(8)],
+            ] # desculpa, apaguei uma letra ali
+        self.fileira = self.in_fileira = randint(0, 5)
+        self.coluna = self.in_coluna = randint(0, 7)
+        self.grade[self.fileira][self.coluna] = "X"
+
+    def __str__(self):
+        clear_terminal()
+        for fileira in self.grade:
+            print(" ".join(fileira))
+        return ""
+
+    def move(self, pas_pos: list, new_pos: list):
+        try:
+            if new_pos[0] < 0 or new_pos[1] < 0:
+                raise IndexError 
+            self.grade[new_pos[0]][new_pos[1]] = "X"
+            self.grade[pas_pos[0]][pas_pos[1]] = "*"  
+            self.fileira, self.coluna = new_pos
+        except IndexError:
+            pass
+
+    def up(self):
+        self.move([self.fileira, self.coluna], [self.fileira - 1, self.coluna])
+
+    def left(self):
+        self.move((self.fileira, self.coluna), (self.fileira, self.coluna - 1))
+
+    def down(self):
+        self.move([self.fileira, self.coluna], [self.fileira + 1, self.coluna])
+
+    def right(self):
+        self.move([self.fileira, self.coluna], (self.fileira, self.coluna + 1))
+
+grade = Grade()
+
+def clear_terminal():
+    command = "cls" if name == "nt" else "clear"
+    return system(command)
+
+while executing:
+    pygame.time.delay(100)
+    for event in pygame.event.get():
+        if event.type == pygame.KEYUP:
+            if event.key in _keys.up:
+                grade.up()
+            if event.key in _keys.left:
+                grade.left()
+            if event.key in _keys.down:
+                grade.down()
+            if event.key in _keys.right:
+                grade.right()
+
+            print(grade)
+
+        if event.type == pygame.KEYDOWN:
+            key = event.key
+            if key in _keys.up:
+                print("Pra cima")
+            if key in _keys.left:
+                print("Esquerda")
+            if key in _keys.down:
+                print("Pra baixo")
+            if key in _keys.right:
+                print("Direita")
+            
+        
+    pygame.display.update()
+else:
+    exit()
