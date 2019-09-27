@@ -2,7 +2,9 @@
 Um simples contador utilizando threading.
 
 # Demonstração
-> Código
+
+![Apresentação do Projeto](https://i.imgur.com/t8Vs9aW.gif)
+
 ```python
 from timer import Timer
 from random import randint
@@ -38,5 +40,3 @@ sleep(1.5)
 
 write('Fim do programa!')
 ```
-> Saída
-![Apresentação do Projeto](https://i.imgur.com/t8Vs9aW.gif)
